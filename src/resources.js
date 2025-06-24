@@ -8,6 +8,7 @@ import { syndicate } from './truepath.js';
 import { govActive, defineGovernor } from './governor.js';
 import { govEffect } from './civics.js';
 import { highPopAdjust, production, teamster } from './prod.js';
+import { recordEvent } from './phaseVisualizer.js';
 import { loc } from './locale.js';
 
 export const resource_values = {
@@ -2581,6 +2582,9 @@ function unlockStorage(){
     }
 
     // Enable display for resource tab and storage subtab
+    if (!global.settings.showStorage) {
+        recordEvent('tabUnlocked','storage');
+    }
     global.settings.showResources = true;
     global.settings.showStorage = true;
 
@@ -2603,6 +2607,7 @@ export function unlockCrates(){
 
         // Unlock the storage tab
         unlockStorage();
+        recordEvent('buttonUnlocked','crates');
     }
 }
 
@@ -2618,6 +2623,7 @@ export function unlockContainers(){
 
         // Unlock the storage tab
         unlockStorage();
+        recordEvent('buttonUnlocked','containers');
     }
 }
 

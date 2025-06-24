@@ -2,6 +2,7 @@ export var save = window.localStorage;
 export var global = {
     seed: 1,
     warseed: 1,
+    phase: 0,
     resource: {},
     evolution: {},
     tech: {},
@@ -89,6 +90,9 @@ export function seededRandom(min, max, alt, useSeed) {
         }
         else {
             newGameData();
+        }
+        if (global.phase === undefined) {
+            global.phase = 0;
         }
     }
     else {
@@ -2010,6 +2014,7 @@ function newGameData(){
     global['race'] = { species : 'protoplasm', gods: 'none', old_gods: 'none', seeded: false };
     global['seed'] = Math.rand(0,10000);
     global['warseed'] = Math.rand(0,10000);
+    global['phase'] = 0;
     global['new'] = true;
 }
 
@@ -2323,7 +2328,7 @@ function setRegionStates(reset){
 
     // Tab Indexes
     [
-        'civTabs','govTabs','govTabs2','hellTabs','resTabs','spaceTabs','marketTabs','statsTabs'
+        'civTabs','govTabs','govTabs2','hellTabs','resTabs','spaceTabs','marketTabs','statsTabs','queueTabs'
     ].forEach(function(k){
         if (!global.settings.hasOwnProperty(k) || reset){
             global.settings[k] = 0;

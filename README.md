@@ -70,6 +70,30 @@ npm run deploy
 npm run deploy-win
 ```
 
+For more details on running or deploying the modded version, see [SELF_HOST.md](SELF_HOST.md).
+## Phase Visualizer
+Add a small progress indicator, accessible via a new tab in the Message Queue. Initialize the visualizer after the message queue:
+
+```javascript
+import { initPhaseVisualizer } from './src/phaseVisualizer.js';
+initPhaseVisualizer('phaseVisualizer');
+```
+
+Trigger `recordEvent` whenever buttons, milestones, tabs or subheaders are unlocked.
+
+The current phase value is stored in your save data automatically. Loading an existing
+game will restore the phase visualizer progress.
+
+## Layout Tab
+A new **Layout** tab appears next to Settings. It opens a large canvas displaying a
+grid of buildings colored by sector. The view can be dragged with the mouse and
+zoomed using the scroll wheel. As your phase increases, the subtitle beneath the
+map updates to reflect the current operational focus, such as Planetary or
+Interplanetary activities. Citizens and soldiers are shown as white and red
+pixels respectively. Use the **Key** button below the canvas to toggle a legend
+explaining each color.
+
+
 ## Docker
 If you already have a Docker environment set up and want to run an evolve server using Docker, you can execute the following command to build a Docker image for the evolve server.
 
