@@ -2,6 +2,7 @@ import { global } from './vars.js';
 
 let container = null;
 const unlockedTabs = new Set();
+const phaseCallbacks = [];
 
 function phaseVal() {
     if (global.phase === undefined) {
@@ -32,9 +33,15 @@ export function recordEvent(eventType, detail) {
     } else if (['buttonUnlocked','milestoneReached','subheaderAdded'].includes(eventType)) {
         global.phase = phaseVal() + 1;
     }
+    phaseCallbacks.forEach(fn => {
+        try { fn(global.phase); } catch (e) {}
+    });
     draw();
 }
 
 export function currentPhase() {
     return phaseVal();
+}
+export function onPhaseChange(fn){
+    phaseCallbacks.push(fn);
 }
