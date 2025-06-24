@@ -1495,6 +1495,16 @@ export function index(){
 
     tabs.append(settings);
 
+    // Layout Tab
+    let layoutTab = $(`<b-tab-item id="layoutTab" class="layout sticky">
+        <template slot="header">Layout</template>
+        <div id="layoutContainer">
+            <h2 id="layoutSubtitle"></h2>
+            <canvas id="layoutCanvas" width="600" height="400" class="layoutCanvas"></canvas>
+        </div>
+    </b-tab-item>`);
+    tabs.append(layoutTab);
+
     // (Hidden Last Tab) Hell Observation Tab
     let observe = $(`<b-tab-item disabled>
         <template slot="header"></template>
