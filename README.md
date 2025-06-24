@@ -69,6 +69,8 @@ npm run deploy
 # Deploys the game to GitHub Pages on Windows (requires forking)
 npm run deploy-win
 ```
+
+For more details on running or deploying the modded version, see [SELF_HOST.md](SELF_HOST.md).
 ## Phase Visualizer
 Add a small progress indicator, accessible via a new tab in the Message Queue. Initialize the visualizer after the message queue:
 

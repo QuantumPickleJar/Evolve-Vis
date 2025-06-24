@@ -1,5 +1,6 @@
 import { global, save, seededRandom, webWorker, clearSavedMessages, clearStates } from './vars.js';
 import { tagEvent, calcPrestige, updateResetStats } from './functions.js';
+import { playBioseedFx, playBigBangFx } from './resetFX.js';
 import { races, planetTraits } from './races.js';
 import { unlockAchieve, unlockFeat, checkAchievements, universeAffix, alevel } from './achieve.js';
 
@@ -220,7 +221,7 @@ export function bioseed(){
     });
 
     save.setItem('evolved',LZString.compressToUTF16(JSON.stringify(global)));
-    window.location.reload();
+    playBioseedFx(() => window.location.reload());
 }
 
 // Cataclysm
@@ -425,7 +426,7 @@ export function big_bang(){
     });
 
     save.setItem('evolved',LZString.compressToUTF16(JSON.stringify(global)));
-    window.location.reload();
+    playBigBangFx(() => window.location.reload());
 }
 
 export function vacuumCollapse(){
