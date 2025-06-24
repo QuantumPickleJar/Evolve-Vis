@@ -2328,7 +2328,7 @@ function setRegionStates(reset){
 
     // Tab Indexes
     [
-        'civTabs','govTabs','govTabs2','hellTabs','resTabs','spaceTabs','marketTabs','statsTabs'
+        'civTabs','govTabs','govTabs2','hellTabs','resTabs','spaceTabs','marketTabs','statsTabs','queueTabs'
     ].forEach(function(k){
         if (!global.settings.hasOwnProperty(k) || reset){
             global.settings[k] = 0;

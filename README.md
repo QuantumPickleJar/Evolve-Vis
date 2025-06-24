@@ -70,7 +70,7 @@ npm run deploy
 npm run deploy-win
 ```
 ## Phase Visualizer
-Add a small progress indicator by initializing the visualizer after the message queue:
+Add a small progress indicator, accessible via a new tab in the Message Queue. Initialize the visualizer after the message queue:
 
 ```javascript
 import { initPhaseVisualizer } from './src/phaseVisualizer.js';
