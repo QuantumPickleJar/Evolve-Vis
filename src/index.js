@@ -8,6 +8,7 @@ import { clearSpyopDrag } from './governor.js';
 import { defineIndustry, setPowerGrid, gridDefs, clearGrids } from './industry.js';
 import { defineGovernment, defineGarrison, buildGarrison, commisionGarrison, foreignGov } from './civics.js';
 import { races, shapeShift, renderPsychicPowers, renderSupernatural } from './races.js';
+import { recordEvent } from './phaseVisualizer.js';
 import { drawEvolution, drawCity, drawTech, resQueue, clearResDrag } from './actions.js';
 import { renderSpace, ascendLab, terraformLab } from './space.js';
 import { renderFortress, buildFortress, drawMechLab, clearMechDrag, drawHellObservations } from './portal.js';
@@ -316,6 +317,7 @@ export function initTabs(){
 }
 
 export function loadTab(tab){
+    recordEvent('tabUnlocked', tab);
     if (!global.settings.tabLoad){
         clearResDrag();
         clearGrids();
@@ -962,6 +964,7 @@ export function index(){
             </div>
         </div>
         <div id="resources" class="resources vscroll"><h2 class="is-sr-only">${loc('tab_resources')}</h2></div>
+        <div id="phaseVisualizer"></div>
     </div>`);
     message_filters.forEach(function (filter){
         $(`#msgQueueFilters`).append(`
@@ -1502,4 +1505,10 @@ export function index(){
             </span>
         </div>
     `);
+
+    document.addEventListener('DOMNodeInserted', function(e){
+        if (e.target && e.target.classList && e.target.classList.contains('divider')) {
+            recordEvent('subheaderAdded', e.target.textContent.trim());
+        }
+    });
 }

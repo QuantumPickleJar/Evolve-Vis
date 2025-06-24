@@ -4,6 +4,7 @@ import { races, genus_def } from './races.js';
 import { actions } from './actions.js';
 import { universe_affixes, universe_types, piracy } from './space.js';
 import { monsters } from './portal.js';
+import { recordEvent } from './phaseVisualizer.js';
 import { loc } from './locale.js'
 
 const achieve_list = {
@@ -346,11 +347,15 @@ export function unlockAchieve(achievement,small,rank,universe){
     }
     if ((global.race.universe === 'micro' && small === true) || (global.race.universe !== 'micro' && small !== true)){
         if (global.stats.achieve[achievement] && global.stats.achieve[achievement].l < rank){
+            if (!global.settings.showAchieve) {
+                recordEvent('tabUnlocked','stats');
+            }
             global.settings.showAchieve = true;
             global.stats.achieve[achievement].l = rank;
             messageQueue(loc(upgrade ? 'achieve_unlock_achieve_upgrade' : 'achieve_unlock_achieve', [achievements[achievement].name] ),'special',false,['achievements']);
             redraw = true;
             unlock = true;
+            recordEvent('milestoneReached', achievement);
         }
     }
     if (global.stats.achieve[achievement] && universe !== 'l'){
@@ -386,11 +391,15 @@ export function unlockFeat(feat,small,rank){
     }
     if (!global.stats.feat[feat] || (global.stats.feat[feat] && global.stats.feat[feat] < rank)){
         let upgrade = global.stats.feat[feat] ? true : false;
+        if (!global.settings.showAchieve) {
+            recordEvent('tabUnlocked','stats');
+        }
         global.settings.showAchieve = true;
         global.stats.feat[feat] = rank;
         messageQueue(loc(upgrade ? 'feat_upgraded' : 'feat_unlocked', [feats[feat].name] ),'special',false,['achievements']);
         drawPerks();
         drawAchieve();
+        recordEvent('milestoneReached', feat);
         return true;
     }
     return false;

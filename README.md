@@ -69,6 +69,16 @@ npm run deploy
 # Deploys the game to GitHub Pages on Windows (requires forking)
 npm run deploy-win
 ```
+## Phase Visualizer
+Add a small progress indicator by initializing the visualizer after the message queue:
+
+```javascript
+import { initPhaseVisualizer } from './src/phaseVisualizer.js';
+initPhaseVisualizer('phaseVisualizer');
+```
+
+Trigger `recordEvent` whenever buttons, milestones, tabs or subheaders are unlocked.
+
 
 ## Docker
 If you already have a Docker environment set up and want to run an evolve server using Docker, you can execute the following command to build a Docker image for the evolve server.
