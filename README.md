@@ -93,7 +93,6 @@ Interplanetary activities. Citizens and soldiers are shown as white and red
 pixels respectively. Use the **Key** button below the canvas to toggle a legend
 explaining each color.
 
-
 ## Docker
 If you already have a Docker environment set up and want to run an evolve server using Docker, you can execute the following command to build a Docker image for the evolve server.
 

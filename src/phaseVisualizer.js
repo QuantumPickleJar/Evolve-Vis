@@ -42,7 +42,6 @@ export function recordEvent(eventType, detail) {
 export function currentPhase() {
     return phaseVal();
 }
-
 export function onPhaseChange(fn){
     phaseCallbacks.push(fn);
 }
