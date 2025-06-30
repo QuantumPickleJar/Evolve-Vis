@@ -493,6 +493,7 @@
   "message_log_major_events": "주요 이벤트",
   "message_log_minor_events": "비주요 이벤트",
   "message_log_achievements": "업적",
+  "message_log_phase": "Phase",
   "message_log_hell": "지옥 활동",
   "message_log_settings_visible": "표시될 메세지 종류",
   "message_log_settings_length": "종류별 출력될 최대 메세지 수",

@@ -1254,6 +1254,24 @@ export function index(){
     </b-tab-item>`);
     tabs.append(stats);
 
+    // Layout Tab
+    let layoutTab = $(`<b-tab-item id="layoutTab" class="layout sticky">
+        <template slot="header">Layout</template>
+        <div id="layoutContainer">
+            <h2 id="layoutSubtitle"></h2>
+            <canvas id="layoutCanvas" width="600" height="400" class="layoutCanvas"></canvas>
+            <button id="layoutKeyToggle" class="button">Key</button>
+            <div id="layoutKey" style="display:none" class="layoutKey">
+                <div><span class="keyBox" style="background:#3498db"></span> Residential</div>
+                <div><span class="keyBox" style="background:#e67e22"></span> Industrial</div>
+                <div><span class="keyBox" style="background:#2ecc71"></span> Civic</div>
+                <div><span class="keyBox" style="background:#ffffff"></span> Citizens</div>
+                <div><span class="keyBox" style="background:#ff0000"></span> Soldiers</div>
+            </div>
+        </div>
+    </b-tab-item>`);
+    tabs.append(layoutTab);
+
     let iconlist = '';
     let icons = [
         {i: 'nuclear',      f: 'steelem',               r: 2 },
@@ -1494,24 +1512,6 @@ export function index(){
     </b-tab-item>`);
 
     tabs.append(settings);
-
-    // Layout Tab
-    let layoutTab = $(`<b-tab-item id="layoutTab" class="layout sticky">
-        <template slot="header">Layout</template>
-        <div id="layoutContainer">
-            <h2 id="layoutSubtitle"></h2>
-            <canvas id="layoutCanvas" width="600" height="400" class="layoutCanvas"></canvas>
-            <button id="layoutKeyToggle" class="button">Key</button>
-            <div id="layoutKey" style="display:none" class="layoutKey">
-                <div><span class="keyBox" style="background:#3498db"></span> Residential</div>
-                <div><span class="keyBox" style="background:#e67e22"></span> Industrial</div>
-                <div><span class="keyBox" style="background:#2ecc71"></span> Civic</div>
-                <div><span class="keyBox" style="background:#ffffff"></span> Citizens</div>
-                <div><span class="keyBox" style="background:#ff0000"></span> Soldiers</div>
-            </div>
-        </div>
-    </b-tab-item>`);
-    tabs.append(layoutTab);
 
     // (Hidden Last Tab) Hell Observation Tab
     let observe = $(`<b-tab-item disabled>

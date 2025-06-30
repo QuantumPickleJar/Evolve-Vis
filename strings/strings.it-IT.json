@@ -493,6 +493,7 @@
     "message_log_major_events": "Eventi principali",
     "message_log_minor_events": "Eventi minori",
     "message_log_achievements": "Risultati",
+  "message_log_phase": "Phase",
     "message_log_hell": "Attività dell'inferno",
     "message_log_settings_visible": "Categorie visibili",
     "message_log_settings_length": "Messaggi massimi per categoria",

@@ -422,6 +422,7 @@
   "message_log_major_events": "Основные События",
   "message_log_minor_events": "Прочие События",
   "message_log_achievements": "Достижения",
+  "message_log_phase": "Phase",
   "message_log_hell": "Активность в Аду",
   "message_log_settings_visible": "Отображаемые категории",
   "message_log_settings_length": "Максимум сообщений в категории",

@@ -486,6 +486,7 @@
   "message_log_major_events": "Wichtige Ereignisse",
   "message_log_minor_events": "Kleinere Ereignisse",
   "message_log_achievements": "Errungenschaften",
+  "message_log_phase": "Phase",
   "message_log_hell": "Höllen-Aktivität",
   "message_log_settings_visible": "Sichtbare Kategorien",
   "message_log_settings_length": "Maximale Anzahl von Nachrichten pro Kategorie",

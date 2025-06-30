@@ -547,6 +547,7 @@
   "message_log_major_events": "Major Events",
   "message_log_minor_events": "Minor Events",
   "message_log_achievements": "Achievements",
+  "message_log_phase": "Phase",
   "message_log_hell": "Hell Activity",
   "message_log_settings_visible": "Visible Categories",
   "message_log_settings_length": "Max Messages Per Category",

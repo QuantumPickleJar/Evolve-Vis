@@ -547,6 +547,7 @@
   "message_log_major_events": "主要事件",
   "message_log_minor_events": "次要事件",
   "message_log_achievements": "成就",
+  "message_log_phase": "Phase",
   "message_log_hell": "地狱维度",
   "message_log_settings_visible": "显示的类别",
   "message_log_settings_length": "每个类别的日志上限",
