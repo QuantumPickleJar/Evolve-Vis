@@ -70,6 +70,9 @@ npm run deploy
 npm run deploy-win
 ```
 
+For an assisted start on Windows run `start.bat`. It installs dependencies and
+launches the local server automatically.
+
 For more details on running or deploying the modded version, see [SELF_HOST.md](SELF_HOST.md).
 ## Phase Visualizer
 Add a small progress indicator, accessible via a new tab in the Message Queue. Initialize the visualizer after the message queue:

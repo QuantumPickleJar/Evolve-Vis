@@ -2,6 +2,9 @@
 
 This repository can be served locally or from GitHub Pages. To play the modded version locally you will need Node.js installed.
 
+On Windows you can simply run `start.bat` located in the project root. The script installs the required dependencies and then launches the local server for you.
+If you'd rather run the commands yourself, use the following:
+
 ```bash
 npm install
 npm run serve
