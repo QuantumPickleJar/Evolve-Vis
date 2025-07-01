@@ -86,7 +86,9 @@ initPhaseVisualizer('phaseVisualizer', 'phaseCanvas');
 Trigger `recordEvent` whenever buttons, milestones, tabs or subheaders are unlocked.
 
 The current phase value is stored in your save data automatically. Loading an existing
-game will restore the phase visualizer progress.
+game will restore the phase visualizer progress. As progress increases the phase
+indicator labels the stage of your empire, from **Cellular** beginnings to a
+**Hell Dimension**.
 
 ## Layout Tab
 A new **Layout** tab appears next to Settings. It opens a large canvas displaying a

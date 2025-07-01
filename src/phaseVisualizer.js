@@ -9,6 +9,13 @@ let cell = { x: 0, y: 0 };
 let food = { x: 3, y: 3 };
 const grid = 10;
 const step = 20;
+const phaseNames = [
+    'Cellular',
+    'Planetary',
+    'Early Space',
+    'Intergalactic',
+    'Hell Dimension'
+];
 
 function phaseVal() {
     if (global.phase === undefined) {
@@ -17,13 +24,19 @@ function phaseVal() {
     return global.phase;
 }
 
+export function phaseName(val = phaseVal()) {
+    const idx = Math.min(Math.floor(val / 10), phaseNames.length - 1);
+    return phaseNames[idx];
+}
+
 function draw() {
     if (container) {
         const total = 10;
         const phase = phaseVal();
         const filled = Math.min(total, phase % (total + 1));
         const bar = '[' + '#'.repeat(filled) + '-'.repeat(total - filled) + ']';
-        container.textContent = `Phase ${phase}\n${bar}`;
+        const name = phaseName(phase);
+        container.textContent = `Phase ${phase}: ${name}\n${bar}`;
     }
     drawCell();
 }
