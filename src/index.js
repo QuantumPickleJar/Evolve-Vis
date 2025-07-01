@@ -981,6 +981,7 @@ export function index(){
                         <span aria-hidden="true">Phase</span>
                     </template>
                     <pre id="phaseVisualizer" class="msgQueue vscroll"></pre>
+                    <canvas id="phaseCanvas" width="200" height="200" tabindex="0" class="phaseCanvas"></canvas>
                 </b-tab-item>
             </b-tabs>
         </div>
