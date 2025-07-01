@@ -1256,7 +1256,7 @@ export function index(){
 
     // Layout Tab
     let layoutTab = $(`<b-tab-item id="layoutTab" class="layout sticky">
-        <template slot="header">Layout</template>
+        <template slot="header">{{ 'tab_layout' | label }}</template>
         <div id="layoutContainer">
             <h2 id="layoutSubtitle"></h2>
             <canvas id="layoutCanvas" width="600" height="400" class="layoutCanvas"></canvas>
