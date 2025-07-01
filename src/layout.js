@@ -1,5 +1,5 @@
 import { global } from './vars.js';
-import { currentPhase, onPhaseChange } from './phaseVisualizer.js';
+import { currentPhase, onPhaseChange, phaseName } from './phaseVisualizer.js';
 
 let canvas, ctx, subtitle, keyToggle, keyBox;
 let zoom = 1;
@@ -112,10 +112,7 @@ function draw(){
 
 export function updateSubtitle(phase){
     if(!subtitle) return;
-    if(phase >= 5){
-        subtitle.textContent = 'Interplanetary Operations';
-    } else {
-        subtitle.textContent = 'Planetary Operations';
-    }
+    const name = phaseName(phase);
+    subtitle.textContent = `${name} Operations`;
     draw();
 }
