@@ -179,7 +179,7 @@ else {
 }
 
 initMessageQueue();
-initPhaseVisualizer('phaseVisualizer');
+initPhaseVisualizer('phaseVisualizer','phaseCanvas');
 initLayoutVisualizer('layoutCanvas','layoutSubtitle');
 
 if (global.lastMsg){

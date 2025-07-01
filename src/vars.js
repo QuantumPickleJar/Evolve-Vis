@@ -59,7 +59,7 @@ export var hell_graphs = {};
 export var message_logs = {
     view: 'all'
 };
-export const message_filters = ['all','progress','queue','building_queue','research_queue','combat','spy','events','major_events','minor_events','achievements','hell'];
+export const message_filters = ['all','progress','queue','building_queue','research_queue','combat','spy','events','major_events','minor_events','achievements','phase','hell'];
 export var callback_queue = new Map();
 
 Math.rand = function(min, max) {
@@ -849,6 +849,7 @@ if (convertVersion(global['version']) < 101011){
             major_events: true,
             minor_events: true,
             achievements: (global.stats['achieve'] && Object.keys(global.stats.achieve).length > 0) || (global.stats['feat'] && Object.keys(global.stats.feat).length > 0),
+            phase: true,
             hell: global.settings.showPortal || global.stats.blackhole || global.stats.ascend || global.stats.descend
         }
     }
@@ -1401,7 +1402,7 @@ if (!global.settings['msgFilters']){
 }
 
 //Message Filters unlocked by default
-['all','progress','events','major_events','minor_events'].forEach(function (filter){
+['all','progress','events','major_events','minor_events','phase'].forEach(function (filter){
     if (!global.settings.msgFilters[filter]){
         global.settings.msgFilters[filter] = {
             unlocked: true,
