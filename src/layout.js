@@ -1,5 +1,6 @@
 import { global } from './vars.js';
 import { currentPhase, onPhaseChange, phaseName } from './phaseVisualizer.js';
+import { loopTimers } from './functions.js';
 
 let canvas, ctx, subtitle, keyToggle, keyBox;
 let zoom = 1;
@@ -29,6 +30,7 @@ export function initLayoutVisualizer(canvasId, subtitleId) {
     onPhaseChange(updateSubtitle);
     updateSubtitle(currentPhase());
     draw();
+    setInterval(draw, loopTimers().mainTimer);
 }
 
 function onWheel(e) {
@@ -84,18 +86,31 @@ function draw(){
     const cell = 20;
     const counts = gatherBuildings();
     const pop = gatherPopulation();
-    const cells = [
+    const groups = [
         { count: counts.residential, color: '#3498db' },
         { count: counts.industrial, color: '#e67e22' },
         { count: counts.civic, color: '#2ecc71' }
     ];
-    let x = 0; let y = 0; const maxX = Math.floor(canvas.width / cell / zoom);
-    cells.forEach(c=>{
-        for(let i=0;i<c.count;i++){
-            ctx.fillStyle = c.color;
-            ctx.fillRect(x*cell, y*cell, cell-2, cell-2);
-            x++;
-            if(x >= maxX){ x = 0; y++; }
+    const maxX = Math.floor(canvas.width / cell / zoom);
+    const total = groups.reduce((n,g)=>n+g.count,0);
+    const rows = Math.ceil(total / maxX);
+    const coords = [];
+    for(let yy=0; yy<rows; yy++){
+        for(let xx=0; xx<maxX; xx++){
+            coords.push({x:xx,y:yy});
+        }
+    }
+    for(let i=coords.length-1;i>0;i--){
+        const j=Math.floor(Math.random()*(i+1));
+        [coords[i],coords[j]]=[coords[j],coords[i]];
+    }
+    let idx=0;
+    groups.forEach(g=>{
+        for(let i=0;i<g.count;i++){
+            if(idx>=coords.length) break;
+            const p=coords[idx++];
+            ctx.fillStyle=g.color;
+            ctx.fillRect(p.x*cell,p.y*cell,cell-2,cell-2);
         }
     });
     const maxDots = 200;
