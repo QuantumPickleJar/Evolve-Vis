@@ -64,7 +64,10 @@ npm run wiki-less
 npm run wiki-less-win
 # Launches the game server locally on localhost:4400
 # Builds the project before launching the server
+# Linux
 npm run build
+# Windows
+npm run build-win
 npm run serve
 # Deploys the game to GitHub Pages on Linux (requires forking)
 npm run deploy
