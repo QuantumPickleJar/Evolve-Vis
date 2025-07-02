@@ -179,8 +179,6 @@ else {
 }
 
 initMessageQueue();
-initPhaseVisualizer('phaseVisualizer','phaseCanvas');
-initLayoutVisualizer('layoutCanvas','layoutSubtitle');
 
 if (global.lastMsg){
     Object.keys(global.lastMsg).forEach(function (tag){
@@ -209,6 +207,10 @@ if (global.r_queue.display){
 }
 
 mainVue();
+Vue.nextTick(() => {
+    initPhaseVisualizer('phaseVisualizer','phaseCanvas');
+    initLayoutVisualizer('layoutCanvas','layoutSubtitle');
+});
 
 if (global['new']){
     messageQueue(loc('new'), 'warning',false,['progress']);
