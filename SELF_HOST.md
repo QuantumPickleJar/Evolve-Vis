@@ -7,6 +7,7 @@ If you'd rather run the commands yourself, use the following:
 
 ```bash
 npm install
+npm run build
 npm run serve
 ```
 
