@@ -29,12 +29,20 @@
             document.getElementById('save').innerHTML = 'No Save data detected';
         }
     </script>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CPC46V71CB"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-CPC46V71CB');
+        function gtag(){ dataLayer.push(arguments); }
+        (function(){
+            const s = document.createElement('script');
+            s.async = true;
+            s.src = 'https://www.googletagmanager.com/gtag/js?id=G-CPC46V71CB';
+            s.onload = () => {
+                gtag('js', new Date());
+                gtag('config', 'G-CPC46V71CB');
+            };
+            s.onerror = () => console.warn('Analytics disabled');
+            try { document.head.appendChild(s); } catch(e) { /* ignore */ }
+        })();
     </script>
 </body>
 </html>

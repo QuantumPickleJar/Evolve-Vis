@@ -13,6 +13,7 @@ export var global = {
     eden: {},
     tauceti: {},
     civic: {},
+    layout: { positions: [] },
     race: {},
     genes: {},
     blood: {},
@@ -2050,36 +2051,16 @@ export function convertVersion(version){
 }
 
 export function resizeGame(){
-    if ($(window).width() >= 1400 && $('#msgQueue:not(.right)')){
-        let build = $('#buildQueue').detach();
-        build.addClass('right');
-        build.removeClass('has-text-info');
+    const build = $('#buildQueue');
+    const queue = $('#msgQueue');
 
-        let queue = $('#msgQueue').detach();
-        queue.addClass('right');
-        queue.removeClass('has-text-info');
-        queue.css('resize', 'none');
-        $('#queueColumn').addClass('is-one-quarter');
-        $('#queueColumn').append(build);
-        $('#queueColumn').append(queue);
-        $('#mainColumn').removeClass('is-three-quarters');
-        $('#mainColumn').addClass('is-half');
+    if(!build.length || !queue.length) return;
 
-    }
-    else if ($(window).width() < 1400 && $('#msgQueue').hasClass('right')){
-        let build = $('#buildQueue').detach();
-        build.removeClass('right');
-        build.addClass('has-text-info');
-
-        let queue = $('#msgQueue').detach();
-        queue.removeClass('right');
-        queue.addClass('has-text-info');
-        queue.css('resize', 'vertical');
-        $('#queueColumn').removeClass('is-one-quarter');
-        $('#sideQueue').append(build);
-        $('#sideQueue').append(queue);
-        $('#mainColumn').removeClass('is-half');
-        $('#mainColumn').addClass('is-three-quarters');
+    if(!queue.hasClass('right')){
+        build.detach().addClass('right').removeClass('has-text-info');
+        queue.detach().addClass('right').removeClass('has-text-info').css('resize','none');
+        $('#queueColumn').addClass('is-one-quarter').append(build).append(queue);
+        $('#mainColumn').removeClass('is-three-quarters').addClass('is-half');
     }
 }
 
