@@ -9,6 +9,21 @@ let offsetY = 0;
 let dragging = false;
 let startX = 0;
 let startY = 0;
+let layoutState;
+const cell = 20;
+const colorMap = {
+    residential: '#3498db',
+    industrial: '#e67e22',
+    civic: '#2ecc71'
+};
+
+function hasRace(){
+    return global.race && Object.keys(global.race).length > 0;
+}
+
+function hasGenetics(){
+    return global.resource && global.resource.DNA && global.resource.RNA;
+}
 
 export function initLayoutVisualizer(canvasId, subtitleId) {
     canvas = document.getElementById(canvasId);
@@ -16,7 +31,17 @@ export function initLayoutVisualizer(canvasId, subtitleId) {
     keyToggle = document.getElementById('layoutKeyToggle');
     keyBox = document.getElementById('layoutKey');
     if (!canvas) return;
+    if(!hasRace()){
+        if(subtitle) subtitle.style.display = 'none';
+        canvas.style.display = 'none';
+        if(keyToggle) keyToggle.style.display = 'none';
+        return;
+    } else {
+        canvas.style.display = 'block';
+        if(keyToggle) keyToggle.style.display = 'inline-block';
+    }
     ctx = canvas.getContext('2d');
+    layoutState = global.layout || (global.layout = { positions: [] });
     canvas.addEventListener('wheel', onWheel);
     canvas.addEventListener('mousedown', startDrag);
     canvas.addEventListener('mousemove', drag);
@@ -29,8 +54,8 @@ export function initLayoutVisualizer(canvasId, subtitleId) {
     }
     onPhaseChange(updateSubtitle);
     updateSubtitle(currentPhase());
-    draw();
-    setInterval(draw, loopTimers().mainTimer);
+    stepLayout();
+    setInterval(stepLayout, loopTimers().mainTimer);
 }
 
 function onWheel(e) {
@@ -60,15 +85,16 @@ function endDrag(){
 }
 
 function gatherBuildings(){
-    const counts = { residential:0, industrial:0, civic:0 };
-    if (!global.city) return counts;
+    const list = [];
+    if (!global.city) return list;
     Object.keys(global.city).forEach(k=>{
         const count = global.city[k] && global.city[k].count ? global.city[k].count : 0;
-        if (/house|cottage|apartment/i.test(k)) counts.residential += count;
-        else if (/factory|foundry|mill|forge/i.test(k)) counts.industrial += count;
-        else counts.civic += count;
+        let type = 'civic';
+        if (/house|cottage|apartment/i.test(k)) type = 'residential';
+        else if (/factory|foundry|mill|forge/i.test(k)) type = 'industrial';
+        for(let i=0;i<count;i++) list.push(type);
     });
-    return counts;
+    return list;
 }
 
 function gatherPopulation(){
@@ -77,41 +103,83 @@ function gatherPopulation(){
     return { citizens, soldiers };
 }
 
+function randomCoord(){
+    const maxX = Math.floor(canvas.width / cell / zoom);
+    const maxY = Math.floor(canvas.height / cell / zoom);
+    return { x: Math.floor(Math.random()*maxX), y: Math.floor(Math.random()*maxY) };
+}
+
+function updateLayoutState(){
+    const buildings = gatherBuildings();
+    const pos = layoutState.positions;
+    while(pos.length < buildings.length){
+        const p = randomCoord();
+        if(!pos.some(o=>o.x===p.x && o.y===p.y)) pos.push({ ...p, type: buildings[pos.length] });
+    }
+    while(pos.length > buildings.length){
+        pos.pop();
+    }
+    pos.forEach((p,i)=>{ p.type = buildings[i]; });
+}
+
+function layoutStage(phase){
+    if(!hasRace()) return '';
+    if(phaseName(phase) === 'Cellular' && hasGenetics()) return 'Cytoskeleton';
+
+    const tech = global.tech || {};
+    if(tech.existential) return 'Existential Dominion';
+    if(tech.dimensional) return 'Dimensional Conquest';
+    if(tech.intergalactic) return 'Intergalactic Empire';
+    if(tech.interstellar) return 'Interstellar Expansion';
+    if(tech.deep_space) return 'Deep Space Colonization';
+    if(tech.early_space) return 'Early Space Age';
+    if(tech.globalized) return 'Globalized Industry';
+    if(tech.industrialized){
+        if(tech.industrialized < 2 && global.stats?.days < 50) return 'Early Industrial Revolution';
+        return 'Industrial Revolution';
+    }
+    if(tech.discovery) return 'Age of Discovery';
+    if(tech.civilized) return 'Civilized Development';
+    if(!tech.primitive || tech.primitive < 3) return 'Nomadic Operations';
+    return `${phaseName(phase)} Operations`;
+}
+
+function stepLayout(){
+    updateLayoutState();
+    draw();
+}
+
 function draw(){
     if(!ctx) return;
     ctx.clearRect(0,0,canvas.width,canvas.height);
     ctx.save();
     ctx.translate(offsetX, offsetY);
     ctx.scale(zoom, zoom);
-    const cell = 20;
-    const counts = gatherBuildings();
     const pop = gatherPopulation();
-    const groups = [
-        { count: counts.residential, color: '#3498db' },
-        { count: counts.industrial, color: '#e67e22' },
-        { count: counts.civic, color: '#2ecc71' }
-    ];
-    const maxX = Math.floor(canvas.width / cell / zoom);
-    const total = groups.reduce((n,g)=>n+g.count,0);
-    const rows = Math.ceil(total / maxX);
-    const coords = [];
-    for(let yy=0; yy<rows; yy++){
-        for(let xx=0; xx<maxX; xx++){
-            coords.push({x:xx,y:yy});
-        }
-    }
-    for(let i=coords.length-1;i>0;i--){
-        const j=Math.floor(Math.random()*(i+1));
-        [coords[i],coords[j]]=[coords[j],coords[i]];
-    }
-    let idx=0;
-    groups.forEach(g=>{
-        for(let i=0;i<g.count;i++){
-            if(idx>=coords.length) break;
-            const p=coords[idx++];
-            ctx.fillStyle=g.color;
-            ctx.fillRect(p.x*cell,p.y*cell,cell-2,cell-2);
-        }
+    layoutState.positions.forEach(p=>{
+        ctx.fillStyle = colorMap[p.type];
+        ctx.fillRect(p.x*cell, p.y*cell, cell-2, cell-2);
+        const cx = p.x*cell + cell/2;
+        const cy = p.y*cell + cell/2;
+        const w = canvas.width/zoom;
+        const h = canvas.height/zoom;
+        const edges = [
+            {x: cx, y: 0},
+            {x: cx, y: h},
+            {x: 0, y: cy},
+            {x: w, y: cy}
+        ];
+        let nearest = edges[0];
+        let nd = Math.abs(nearest.x-cx)+Math.abs(nearest.y-cy);
+        edges.slice(1).forEach(e=>{
+            const d=Math.abs(e.x-cx)+Math.abs(e.y-cy);
+            if(d<nd){ nd=d; nearest=e; }
+        });
+        ctx.strokeStyle='#777';
+        ctx.beginPath();
+        ctx.moveTo(cx,cy);
+        ctx.lineTo(nearest.x,nearest.y);
+        ctx.stroke();
     });
     const maxDots = 200;
     for(let i=0;i<Math.min(pop.citizens,maxDots);i++){
@@ -127,7 +195,12 @@ function draw(){
 
 export function updateSubtitle(phase){
     if(!subtitle) return;
-    const name = phaseName(phase);
-    subtitle.textContent = `${name} Operations`;
-    draw();
+    const text = layoutStage(phase);
+    if(!text){
+        subtitle.style.display = 'none';
+    } else {
+        subtitle.style.display = 'block';
+        subtitle.textContent = text;
+    }
+    stepLayout();
 }

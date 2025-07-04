@@ -99,11 +99,11 @@ indicator labels the stage of your empire, from **Cellular** beginnings to a
 ## Layout Tab
 A new **Layout** tab appears next to Settings. It opens a large canvas displaying a
 grid of buildings colored by sector. The view can be dragged with the mouse and
-zoomed using the scroll wheel. As your phase increases, the subtitle beneath the
-map updates to reflect the current operational focus, such as Planetary or
-Interplanetary activities. Citizens and soldiers are shown as white and red
-pixels respectively. Use the **Key** button below the canvas to toggle a legend
-explaining each color.
+zoomed using the scroll wheel. As your empire advances new technologies, the
+subtitle now displays context-sensitive labels like **Nomadic Operations**,
+**Industrial Revolution**, or **Interstellar Expansion**. Citizens and soldiers
+are shown as white and red pixels respectively. Use the **Key** button below the
+canvas to toggle a legend explaining each color.
 
 ```javascript
 import { initLayoutVisualizer } from './src/layout.js';
